@@ -15,11 +15,16 @@ const MealItemForm = (props) => {
   return (
     <form className={classes.form} onSubmit={onSubmitHandler}>
       <Input
-        type="number"
+        input={{
+          type: "number",
+          id: "qty",
+          min: "1",
+          max: "5",
+          step: "1",
+          defaultValue: "1",
+          onChange: onAmountChange,
+        }}
         label="Amount"
-        id="qty"
-        value="1"
-        onChange={onAmountChange}
       />
       <button>+Add</button>
     </form>
