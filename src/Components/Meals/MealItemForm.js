@@ -1,15 +1,25 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import classes from "./MealItemForm.module.css";
 import Input from "../UI/Input";
+import CartContext from "../../store/cart-context";
 
 const MealItemForm = (props) => {
+  const [amount, setAmount] = useState(1);
+  const cartCtx = useContext(CartContext);
+
   const onAmountChange = (event) => {
-    console.log(event.target.value);
+    setAmount(event.target.value);
   };
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
-    console.log("add to cart", props.id);
+    cartCtx.addItem({
+      id: props.id,
+      name: props.name,
+      price: props.price,
+      amount: parseInt(amount),
+    });
+    setAmount(1);
   };
 
   return (
@@ -21,7 +31,7 @@ const MealItemForm = (props) => {
           min: "1",
           max: "5",
           step: "1",
-          defaultValue: "1",
+          value: amount,
           onChange: onAmountChange,
         }}
         label="Amount"
